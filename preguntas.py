@@ -132,7 +132,53 @@ def pregunta_04():
     ]
 
     """
-    return
+    import csv
+    from collections import Counter, defaultdict
+    from datetime import datetime
+
+
+    def load_data():
+        """Retorna los registros con los campos de interes como una lista de tuplas."""
+
+        csvfile = open("data.csv", "r")
+
+        data = []
+
+        for row in csv.reader(csvfile, delimiter='\t'):
+            data.append((row[0],row[1],row[2],row[3]))
+
+        return data
+
+
+    def compute_by_month(data):
+        """Calcula la cantidad de registros para cada mes."""
+
+        count_by_month = Counter()
+
+        for row in data:
+
+            #
+            # Convierte el string a un objeto fecha:
+            # 05/23/2016 05:35:00 PM
+            #
+            date = str(datetime.strptime(row[2], "%Y-%m-%d").month)
+            if len(date) == 1:
+                date = date.zfill(2)
+            else:
+                date = date.zfill(1) 
+            #
+            # Contador
+            #
+            count_by_month[str(date)] += 1
+
+        return count_by_month
+
+
+    data = load_data()
+    count_by_month = compute_by_month(data)
+    count1 = list(count_by_month.items())
+    count1.sort(key = lambda x: x[0])
+    return count1
 
 
 def pregunta_05():
