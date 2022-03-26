@@ -11,7 +11,10 @@ Utilice el archivo `data.csv` para resolver las preguntas.
 
 
 """
-
+lista = []
+with open("data.csv", "r") as file:
+    data_lab = file.readlines()
+    lista = list(data_lab)
 
 def pregunta_01():
     """
@@ -21,8 +24,11 @@ def pregunta_01():
     214
 
     """
-    x = 214
-    return x
+    suma_seg = 0
+    for linea in lista:
+        suma_seg = suma_seg + eval(linea[2])
+    
+    return suma_seg
 
 
 def pregunta_02():
@@ -38,9 +44,31 @@ def pregunta_02():
         ("D", 6),
         ("E", 14),
     ]
+    
 
     """
-    return
+    suma_a = 0
+    suma_b = 0
+    suma_c = 0
+    suma_d = 0
+    suma_e = 0
+
+    for linea in lista:
+        if linea[0] == "A":
+            suma_a = suma_a + 1
+        elif linea[0] == "B":
+            suma_b = suma_b + 1
+        elif linea[0] == "C":
+            suma_c = suma_c + 1
+        elif linea[0] == "D":
+            suma_d = suma_d + 1
+        elif linea[0] == "E":
+            suma_e = suma_e + 1
+
+    letters_list = ["A", "B", "C", "D", "E"]
+    integers_list = [suma_a, suma_b, suma_c, suma_d, suma_e]
+    x = list(zip(letters_list, integers_list))
+    return x
 
 
 def pregunta_03():
@@ -58,7 +86,28 @@ def pregunta_03():
     ]
 
     """
-    return
+    suma_a = 0
+    suma_b = 0
+    suma_c = 0
+    suma_d = 0
+    suma_e = 0
+
+    for linea in lista:
+        if linea[0] == "A":
+            suma_a = suma_a + eval(linea[2])
+        elif linea[0] == "B":
+            suma_b = suma_b + eval(linea[2])
+        elif linea[0] == "C":
+            suma_c = suma_c + eval(linea[2])
+        elif linea[0] == "D":
+            suma_d = suma_d + eval(linea[2])
+        elif linea[0] == "E":
+            suma_e = suma_e + eval(linea[2])
+
+    letters_list = ["A", "B", "C", "D", "E"]
+    integers_list = [suma_a, suma_b, suma_c, suma_d, suma_e]
+    x = list(zip(letters_list, integers_list))
+    return x
 
 
 def pregunta_04():
