@@ -330,7 +330,7 @@ def pregunta_06():
     data = df.to_numpy().flatten()
     res = pd.DataFrame(data[data != None])
     res = columns =['Name']
-    res = str.split(':', expand = True,n=1)
+    res = res["Name"].str.split(':', expand = True,n=1)
     resdiv = res.columns =['Name','Value']
     products_list = res.values.tolist()
     TypesNames = sorted({row[0] for row in products_list[::]})
