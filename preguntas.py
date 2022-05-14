@@ -13,6 +13,12 @@ Utilice el archivo `data.csv` para resolver las preguntas.
 """
 
 
+
+lista = []
+with open("data.csv", "r") as file:
+    data_lab = file.readlines()
+    lista = list(data_lab)
+
 def pregunta_01():
     """
     Retorne la suma de la segunda columna.
@@ -21,7 +27,11 @@ def pregunta_01():
     214
 
     """
-    return
+    suma_seg = 0
+    for linea in lista:
+        suma_seg = suma_seg + eval(linea[2])
+    
+    return suma_seg
 
 
 def pregunta_02():
@@ -37,9 +47,31 @@ def pregunta_02():
         ("D", 6),
         ("E", 14),
     ]
+    
 
     """
-    return
+    suma_a = 0
+    suma_b = 0
+    suma_c = 0
+    suma_d = 0
+    suma_e = 0
+
+    for linea in lista:
+        if linea[0] == "A":
+            suma_a = suma_a + 1
+        elif linea[0] == "B":
+            suma_b = suma_b + 1
+        elif linea[0] == "C":
+            suma_c = suma_c + 1
+        elif linea[0] == "D":
+            suma_d = suma_d + 1
+        elif linea[0] == "E":
+            suma_e = suma_e + 1
+
+    letters_list = ["A", "B", "C", "D", "E"]
+    integers_list = [suma_a, suma_b, suma_c, suma_d, suma_e]
+    x = list(zip(letters_list, integers_list))
+    return x
 
 
 def pregunta_03():
@@ -57,7 +89,28 @@ def pregunta_03():
     ]
 
     """
-    return
+    suma_a = 0
+    suma_b = 0
+    suma_c = 0
+    suma_d = 0
+    suma_e = 0
+
+    for linea in lista:
+        if linea[0] == "A":
+            suma_a = suma_a + eval(linea[2])
+        elif linea[0] == "B":
+            suma_b = suma_b + eval(linea[2])
+        elif linea[0] == "C":
+            suma_c = suma_c + eval(linea[2])
+        elif linea[0] == "D":
+            suma_d = suma_d + eval(linea[2])
+        elif linea[0] == "E":
+            suma_e = suma_e + eval(linea[2])
+
+    letters_list = ["A", "B", "C", "D", "E"]
+    integers_list = [suma_a, suma_b, suma_c, suma_d, suma_e]
+    x = list(zip(letters_list, integers_list))
+    return x
 
 
 def pregunta_04():
@@ -82,7 +135,53 @@ def pregunta_04():
     ]
 
     """
-    return
+    import csv
+    from collections import Counter, defaultdict
+    from datetime import datetime
+
+
+    def load_data():
+        """Retorna los registros con los campos de interes como una lista de tuplas."""
+
+        csvfile = open("data.csv", "r")
+
+        data = []
+
+        for row in csv.reader(csvfile, delimiter='\t'):
+            data.append((row[0],row[1],row[2],row[3]))
+
+        return data
+
+
+    def compute_by_month(data):
+        """Calcula la cantidad de registros para cada mes."""
+
+        count_by_month = Counter()
+
+        for row in data:
+
+            #
+            # Convierte el string a un objeto fecha:
+            # 05/23/2016 05:35:00 PM
+            #
+            date = str(datetime.strptime(row[2], "%Y-%m-%d").month)
+            if len(date) == 1:
+                date = date.zfill(2)
+            else:
+                date = date.zfill(1) 
+            #
+            # Contador
+            #
+            count_by_month[str(date)] += 1
+
+        return count_by_month
+
+
+    data = load_data()
+    count_by_month = compute_by_month(data)
+    count1 = list(count_by_month.items())
+    count1.sort(key = lambda x: x[0])
+    return count1
 
 
 def pregunta_05():
@@ -100,7 +199,93 @@ def pregunta_05():
     ]
 
     """
-    return
+    min_a = 0
+    min_b = 0
+    min_c = 0
+    min_d = 0
+    min_e = 0
+
+    max_a = 0
+    max_b = 0
+    max_c = 0
+    max_d = 0
+    max_e = 0
+
+    lista = []
+    with open("data.csv", "r") as file:
+        data_lab1 = file.readlines()
+        lista = list(data_lab1)
+
+    for linea in lista:
+        if linea[0] == "A":
+            if min_a != 0:
+                if min_a > linea[2]:
+                    min_a = linea[2]
+            else:
+                min_a = linea[2]
+        elif linea[0] == "B":
+            if min_b != 0:
+                if min_b > linea[2]:
+                    min_b = linea[2]
+            else:
+                min_b = linea[2]
+        elif linea[0] == "C":
+            if min_c != 0:
+                if min_c > linea[2]:
+                    min_c = linea[2]
+            else:
+                min_c = linea[2]
+        elif linea[0] == "D":
+            if min_d != 0:
+                if min_d > linea[2]:
+                    min_d = linea[2]
+            else:
+                min_d = linea[2]
+        elif linea[0] == "E":
+            if min_e != 0:
+                if min_e > linea[2]:
+                    min_e = linea[2]
+            else:
+                min_e = linea[2]
+
+    for linea in lista:
+        if linea[0] == "A":
+            if max_a != 0:
+                if max_a < linea[2]:
+                    max_a = linea[2]
+            else:
+                max_a = linea[2]
+        elif linea[0] == "B":
+            if max_b != 0:
+                if max_b < linea[2]:
+                    max_b = linea[2]
+            else:
+                max_b = linea[2]
+        elif linea[0] == "C":
+            if max_c != 0:
+                if max_c < linea[2]:
+                    max_c = linea[2]
+            else:
+                max_c = linea[2]
+        elif linea[0] == "D":
+            if max_d != 0:
+                if max_d < linea[2]:
+                    max_d = linea[2]
+            else:
+                max_d = linea[2]
+        elif linea[0] == "E":
+            if max_e != 0:
+                if max_e < linea[2]:
+                    max_e = linea[2]
+            else:
+                max_e = linea[2]
+
+    letters_list = ["A", "B", "C", "D", "E"]
+    max_list = [int(max_a), int(max_b), int(max_c), int(max_d), int(max_e)]
+    min_list = [int(min_a), int(min_b), int(min_c), int(min_d), int(min_e)]
+
+    x = list(zip(letters_list,max_list, min_list))
+    return x
 
 
 def pregunta_06():
@@ -125,7 +310,182 @@ def pregunta_06():
     ]
 
     """
-    return
+    import pandas as pd
+    import numpy as np
+    def load_data():
+        """Retorna los registros con los campos de interes como una lista de tuplas."""
+
+        #csvfile = open("/content/drive/MyDrive/Capacitaciones/IA/Postgrado/ciencia de datos/Lab1/programacion-en-python-mblandonp/data.csv", "r")
+        x = open("data.csv", "r").readlines()
+        x = [z.split("\t") for z in x]
+        x = [z[4] for z in x[:]]
+        x = [z.replace("\n", "") for z in x]
+        x = [z.split(",") for z in x[:]]
+
+        return x
+
+    
+    data = load_data()
+    df = pd.DataFrame(data)
+    data = df.to_numpy().flatten()
+    res = pd.DataFrame(data[data != None])
+    res = columns =['Name']
+    res = res["Name"].str.split(':', expand = True,n=1)
+    resdiv = res.columns =['Name','Value']
+    products_list = res.values.tolist()
+    TypesNames = sorted({row[0] for row in products_list[::]})
+
+    min_a = 0
+    min_b = 0
+    min_c = 0
+    min_d = 0
+    min_e = 0
+    min_f = 0
+    min_g = 0
+    min_h = 0
+    min_i = 0
+    min_j = 0
+
+    max_a = 0
+    max_b = 0
+    max_c = 0
+    max_d = 0
+    max_e = 0
+    max_f = 0
+    max_g = 0
+    max_h = 0
+    max_i = 0
+    max_j = 0
+
+    for linea in products_list:
+        if linea[0] == "aaa":
+            if min_a != 0:
+                if min_a > linea[1]:
+                    min_a = linea[1]
+            else:
+                min_a = linea[1]
+        elif linea[0] == "bbb":
+            if min_b != 0:
+                if min_b > linea[1]:
+                    min_b = linea[1]
+            else:
+                min_b = linea[1]
+        elif linea[0] == "ccc":
+            if min_c != 0:
+                if min_c > linea[1]:
+                    min_c = linea[1]
+            else:
+                min_c = linea[1]
+        elif linea[0] == "ddd":
+            if min_d != 0:
+                if min_d > linea[1]:
+                    min_d = linea[1]
+            else:
+                min_d = linea[1]
+        elif linea[0] == "eee":
+            if min_e != 0:
+                if min_e > linea[1]:
+                    min_e = linea[1]
+            else:
+                min_e = linea[1]
+        elif linea[0] == "fff":
+            if min_f != 0:
+                if min_f > linea[1]:
+                    min_f = linea[1]
+            else:
+                min_f = linea[1]
+        elif linea[0] == "ggg":
+            if min_g != 0:
+                if min_g > linea[1]:
+                    min_g = linea[1]
+            else:
+                min_g = linea[1]
+        elif linea[0] == "hhh":
+            if min_h != 0:
+                if min_h > linea[1]:
+                    min_h = linea[1]
+            else:
+                min_h = linea[1]
+        elif linea[0] == "iii":
+            if min_i != 0:
+                if min_i > linea[1]:
+                    min_i = linea[1]
+            else:
+                min_i = linea[1]
+        elif linea[0] == "jjj":
+            if min_j != 0:
+                if min_j > linea[1]:
+                    min_j = linea[1]
+            else:
+                min_j = linea[1]
+
+    for linea in products_list:
+        if linea[0] == "aaa":
+            if max_a != 0:
+                if max_a < linea[1]:
+                    max_a = linea[1]
+            else:
+                max_a = linea[1]
+        elif linea[0] == "bbb":
+            if max_b != 0:
+                if max_b < linea[1]:
+                    max_b = linea[1]
+            else:
+                max_b = linea[1]
+        elif linea[0] == "ccc":
+            if max_c != 0:
+                if max_c < linea[1]:
+                    max_c = linea[1]
+            else:
+                max_c = linea[1]
+        elif linea[0] == "ddd":
+            if max_d != 0:
+                if max_d < linea[1]:
+                    max_d = linea[1]
+            else:
+                max_d = linea[1]
+        elif linea[0] == "eee":
+            if max_e != 0:
+                if max_e < linea[1]:
+                    max_e = linea[1]
+            else:
+                max_e = linea[1]
+        elif linea[0] == "fff":
+            if max_f != 0:
+                if max_f < linea[1]:
+                    max_f = linea[1]
+            else:
+                max_f = linea[1]
+        elif linea[0] == "ggg":
+            if max_g != 0:
+                if max_g < linea[1]:
+                    max_g = linea[1]
+            else:
+                max_g = linea[1]
+        elif linea[0] == "hhh":
+            if max_h != 0:
+                if max_h < linea[1]:
+                    max_h = linea[1]
+            else:
+                max_h = linea[1]
+        elif linea[0] == "iii":
+            if max_i != 0:
+                if max_i < linea[1]:
+                    max_i = linea[1]
+            else:
+                max_i = linea[1]
+        elif linea[0] == "jjj":
+            if max_j != 0:
+                if max_j < linea[1]:
+                    max_j = linea[1]
+            else:
+                max_j = linea[1]
+    
+    min_lista = [int(min_a), int(min_b), int(min_c), int(min_d), int(min_e), int(min_f), int(min_g), int(min_h), int(min_i), int(min_j)]
+    max_lista = [int(max_a), int(max_b), int(max_c), int(max_d), int(max_e), int(max_f), int(max_g), int(max_h), int(max_i), int(max_j)]
+    yy = list(zip(TypesNames,min_lista,max_lista))
+
+    return yy
 
 
 def pregunta_07():
@@ -149,7 +509,23 @@ def pregunta_07():
     ]
 
     """
-    return
+    with open("data.csv", "r") as file:
+        x = file.readlines()    
+    x = [row.replace("\n", "") for row in x]
+    x = [z.split("\t") for z in x]
+
+    y = sorted(set([int(z[1]) for z in x]))
+    lista = []
+
+    for z in y:
+        lista2 = []
+        for i in x:
+            if z == int(i[1]):
+                lista2.append(i[0])
+        lista.append(lista2)
+
+    suma = list(zip(y,lista))
+    return suma
 
 
 def pregunta_08():
@@ -174,7 +550,24 @@ def pregunta_08():
     ]
 
     """
-    return
+    with open("data.csv", "r") as file:
+        x = file.readlines()    
+    x = [row.replace("\n", "") for row in x]
+    x = [z.split("\t") for z in x]
+
+    y = sorted(set([int(z[1]) for z in x]))
+    lista = []
+
+    for z in y:
+        lista2 = []
+        for i in x:
+            if z == int(i[1]) and i[0] not in lista2:
+                lista2.append(i[0])
+        lista2 = sorted(lista2)
+        lista.append(lista2)
+
+    suma = list(zip(y,lista))
+    return suma
 
 
 def pregunta_09():
@@ -197,8 +590,27 @@ def pregunta_09():
     }
 
     """
-    return
+    with open("data.csv", "r") as file:
+        x = file.readlines()    
+    x = [row.replace("\n", "") for row in x]
+    x = [z.split("\t") for z in x]
 
+    y = []
+    y = [z[4] for z in x]
+    clave = []
+    w = []
+    suma = {}
+
+    for i in y:
+        w.append(i.split(","))
+    for j in w:
+        for i in j:
+            clave.append(i.split(":")[0])
+    
+    for o in [[p,clave.count(p)] for p in sorted(set(clave))]:
+        key, value = o[0], o[1]
+        suma[key] = value
+    return suma
 
 def pregunta_10():
     """
@@ -218,7 +630,14 @@ def pregunta_10():
 
 
     """
-    return
+    with open("data.csv", "r") as file:
+        x = file.readlines()    
+    x = [row.replace("\n", "") for row in x]
+    x = [z.split("\t") for z in x]
+
+    y = ([z[0] for z in x])
+    suma = [(o[0],len(o[3].split(",")),len(o[4].split(","))) for o in x]
+    return suma
 
 
 def pregunta_11():
@@ -239,7 +658,36 @@ def pregunta_11():
 
 
     """
-    return
+    with open("data.csv", "r") as file:
+        x = file.readlines()    
+    x = [row.replace("\n", "") for row in x]
+    x = [z.split("\t") for z in x]
+    
+    lista = []
+    lista2 = []
+    final = {}
+    y = [[z[1],z[3].split(",")]for z in x]
+
+    for n in y:
+        for w in range(len(n[1])):
+            lista.append(n[0])
+        
+    for n in y:
+        lista2 = lista2 + n[1]
+    
+    xx = list(zip(lista2,lista))
+    xxx = [z[0] for z in xx]
+    suma = [[z,0] for z in sorted(set(xxx))]
+
+    for z in suma:
+        for row in xx:
+            if row[0] == z[0]:
+                z[1] += int(row[1])
+    for o in [z for z in suma]:
+        key, value = o[0], o[1]
+        final[key] = value
+    return final
+    
 
 
 def pregunta_12():
