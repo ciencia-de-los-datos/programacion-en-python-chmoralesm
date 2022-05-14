@@ -509,7 +509,23 @@ def pregunta_07():
     ]
 
     """
-    return
+    with open("data.csv", "r") as file:
+        x = file.readlines()    
+    x = [row.replace("\n", "") for row in x]
+    x = [z.split("\t") for z in x]
+
+    y = sorted(set([int(z[1]) for z in x]))
+    lista = []
+
+    for z in y:
+        lista2 = []
+        for i in x:
+            if z == int(i[1]):
+                lista2.append(i[0])
+        lista.append(lista2)
+
+    suma = list(zip(y,lista))
+    return suma
 
 
 def pregunta_08():
@@ -534,7 +550,24 @@ def pregunta_08():
     ]
 
     """
-    return
+    with open("data.csv", "r") as file:
+        x = file.readlines()    
+    x = [row.replace("\n", "") for row in x]
+    x = [z.split("\t") for z in x]
+
+    y = sorted(set([int(z[1]) for z in x]))
+    lista = []
+
+    for z in y:
+        lista2 = []
+        for i in x:
+            if z == int(i[1]) and i[0] not in lista2:
+                lista2.append(i[0])
+        lista2 = sorted(lista2)
+        lista.append(lista2)
+
+    suma = list(zip(y,lista))
+    return suma
 
 
 def pregunta_09():
@@ -557,8 +590,27 @@ def pregunta_09():
     }
 
     """
-    return
+    with open("data.csv", "r") as file:
+        x = file.readlines()    
+    x = [row.replace("\n", "") for row in x]
+    x = [z.split("\t") for z in x]
 
+    y = []
+    y = [z[4] for z in x]
+    clave = []
+    w = []
+    suma = {}
+
+    for i in y:
+        w.append(i.split(","))
+    for j in w:
+        for i in j:
+            clave.append(i.split(":")[0])
+    
+    for o in [[p,clave.count(p)] for p in sorted(set(clave))]:
+        key, value = o[0], o[1]
+        suma[key] = value
+    return suma
 
 def pregunta_10():
     """
@@ -578,7 +630,14 @@ def pregunta_10():
 
 
     """
-    return
+    with open("data.csv", "r") as file:
+        x = file.readlines()    
+    x = [row.replace("\n", "") for row in x]
+    x = [z.split("\t") for z in x]
+
+    y = ([z[0] for z in x])
+    suma = [(o[0],len(o[3].split(",")),len(o[4].split(","))) for o in x]
+    return suma
 
 
 def pregunta_11():
@@ -599,7 +658,36 @@ def pregunta_11():
 
 
     """
-    return
+    with open("data.csv", "r") as file:
+        x = file.readlines()    
+    x = [row.replace("\n", "") for row in x]
+    x = [z.split("\t") for z in x]
+    
+    lista = []
+    lista2 = []
+    final = {}
+    y = [[z[1],z[3].split(",")]for z in x]
+
+    for n in y:
+        for w in range(len(n[1])):
+            lista.append(n[0])
+        
+    for n in y:
+        lista2 = lista2 + n[1]
+    
+    xx = list(zip(lista2,lista))
+    xxx = [z[0] for z in xx]
+    suma = [[z,0] for z in sorted(set(xxx))]
+
+    for z in suma:
+        for row in xx:
+            if row[0] == z[0]:
+                z[1] += int(row[1])
+    for o in [z for z in suma]:
+        key, value = o[0], o[1]
+        final[key] = value
+    return final
+    
 
 
 def pregunta_12():
